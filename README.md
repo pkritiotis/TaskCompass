@@ -1,23 +1,72 @@
 # Task Compass for Google Tasks
 
-Chrome MV3 extension that opens Task Compass, an Eisenhower Matrix companion for Google Tasks, in the browser side panel.
+Task Compass is a Chrome side panel extension that turns a Google Tasks list into an Eisenhower Matrix. It helps you sort incomplete tasks by urgency and importance, then act on them without leaving the browser.
 
-## OAuth setup
+## Features
 
-This extension uses `chrome.identity.launchWebAuthFlow` so it can work in Chromium-based browsers that do not support Google's `chrome.identity.getAuthToken` flow reliably.
+- View incomplete tasks from any Google Tasks list in a four-quadrant matrix.
+- Drag tasks between **Do**, **Schedule**, **Delegate**, and **Eliminate**.
+- Treat tasks due today or overdue as urgent by default.
+- Remember manual urgency and importance choices with `chrome.storage.sync`.
+- Mark tasks complete from the matrix and sync that status back to Google Tasks.
+- Keep task data local to the extension and Google APIs, with no analytics or third-party tracking.
 
-Create the OAuth client in Google Cloud Console as:
+## How It Works
 
-- Application type: **Web application**
-- Authorized redirect URI:
+The extension runs as a Manifest V3 Chrome extension. The action button opens the side panel, where Task Compass authenticates with Google, loads task lists through the Google Tasks API, and displays the selected list as a matrix.
+
+Task text and completion status stay in Google Tasks. Task Compass stores only the selected list and matrix classification metadata in Chrome storage so your quadrant choices can sync across Chrome profiles.
+
+## Requirements
+
+- Node.js 20 or newer
+- npm
+- Chrome or another Chromium-based browser with side panel support
+- A Google Cloud project with the Google Tasks API enabled
+
+## Development
+
+Install dependencies:
+
+```bash
+npm install
+```
+
+Run tests:
+
+```bash
+npm test
+```
+
+Build the extension:
+
+```bash
+npm run build
+```
+
+For fast UI iteration outside the extension shell, run Vite:
+
+```bash
+npm run dev
+```
+
+## Google OAuth Setup
+
+Task Compass uses `chrome.identity.launchWebAuthFlow` instead of `chrome.identity.getAuthToken` so the extension works reliably across Chromium-based browsers.
+
+In Google Cloud Console:
+
+1. Enable the **Google Tasks API**.
+2. Create an OAuth client with application type **Web application**.
+3. Add this authorized redirect URI:
 
 ```text
 https://<extension-id>.chromiumapp.org/oauth2
 ```
 
-You can get `<extension-id>` from `chrome://extensions` after loading the unpacked `dist` folder.
+You can find `<extension-id>` at `chrome://extensions` after loading the unpacked `dist` folder.
 
-Then put the Web application client ID in `public/manifest.json`:
+Then set the OAuth client ID in `public/manifest.json`:
 
 ```json
 "oauth2": {
@@ -26,19 +75,55 @@ Then put the Web application client ID in `public/manifest.json`:
 }
 ```
 
-Enable the Google Tasks API in the same Google Cloud project.
+The OAuth client ID is not a secret, but forks and local development builds should use their own Google Cloud OAuth client because the redirect URI depends on the extension ID.
 
-## Development
+After changing `public/manifest.json`, rebuild the extension:
 
 ```bash
-npm install
 npm run build
 ```
 
-Load the unpacked extension from:
+## Loading The Extension Locally
+
+1. Open `chrome://extensions`.
+2. Enable **Developer mode**.
+3. Click **Load unpacked**.
+4. Select the generated `dist` folder.
+5. Pin or click the extension action to open Task Compass in the side panel.
+
+When you change source files, run `npm run build` again and click **Reload** for the extension in `chrome://extensions`.
+
+## Privacy
+
+Task Compass requests the Google Tasks OAuth scope:
 
 ```text
-dist
+https://www.googleapis.com/auth/tasks
 ```
 
-After changing `public/manifest.json`, run `npm run build` and click **Reload** for the extension in `chrome://extensions`.
+This lets the extension read task lists, read incomplete tasks, and mark tasks complete when you choose to do so. The extension does not run analytics, advertising, or behavioral tracking.
+
+See [PRIVACY.md](PRIVACY.md) for the full privacy policy.
+
+## Project Structure
+
+```text
+src/domain/              Core task classification and metadata logic
+src/infrastructure/      Chrome storage and OAuth integration
+src/sidepanel/           React side panel UI
+public/manifest.json     Chrome extension manifest
+store-assets/            Chrome Web Store listing assets and source files
+```
+
+## Scripts
+
+```bash
+npm run build       # type-check and build the extension into dist/
+npm test            # run the Vitest suite
+npm run test:watch  # run tests in watch mode
+npm run dev         # start the Vite dev server for UI work
+```
+
+## License
+
+Choose and add an open-source license before accepting external contributions. Until a license is added, all rights are reserved by default.
