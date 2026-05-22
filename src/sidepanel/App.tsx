@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { DndContext, type DragEndEvent } from "@dnd-kit/core";
-import { Check, ListChecks, RefreshCw, ShieldCheck } from "lucide-react";
+import { Check, ListChecks, LogOut, RefreshCw, ShieldCheck } from "lucide-react";
 import {
   classifyTasks,
   createMetadataForQuadrant,
@@ -106,6 +106,23 @@ export function App() {
     }
   }
 
+  async function disconnectGoogle() {
+    setState("loading");
+    setError(null);
+
+    try {
+      await authProvider.disconnect();
+      setTaskLists([]);
+      setSelectedTaskListId(null);
+      setTasks([]);
+      setClassifiedTasks([]);
+      setState("needs-auth");
+    } catch (disconnectError) {
+      setError(toErrorMessage(disconnectError));
+      setState("error");
+    }
+  }
+
   async function selectTaskList(taskListId: string) {
     setSelectedTaskListId(taskListId);
     await metadataStore.setSelectedTaskList(taskListId);
@@ -205,9 +222,16 @@ export function App() {
           <p className="eyebrow">Google Tasks</p>
           <h1>Task Compass</h1>
         </div>
-        <button className="icon-button" title="Refresh tasks" onClick={refreshTasks}>
-          <RefreshCw size={18} />
-        </button>
+        <div className="header-actions">
+          {state === "ready" || state === "error" ? (
+            <button className="icon-button" title="Disconnect Google" onClick={disconnectGoogle}>
+              <LogOut size={18} />
+            </button>
+          ) : null}
+          <button className="icon-button" title="Refresh tasks" onClick={refreshTasks}>
+            <RefreshCw size={18} />
+          </button>
+        </div>
       </header>
 
       {error && <div className="notice error">{error}</div>}

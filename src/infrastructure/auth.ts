@@ -1,6 +1,6 @@
 export type AuthTokenProvider = {
   getToken(interactive?: boolean): Promise<string>;
-  clearToken(token: string): Promise<void>;
+  disconnect(): Promise<void>;
 };
 
 type CachedAuthToken = {
@@ -45,13 +45,16 @@ export class ChromeWebAuthFlowTokenProvider implements AuthTokenProvider {
     return token.token;
   }
 
-  async clearToken(token: string): Promise<void> {
-    if (this.memoryToken?.token === token) {
-      this.memoryToken = null;
+  async disconnect(): Promise<void> {
+    const cachedToken = this.memoryToken ?? (await this.getCachedToken());
+    this.memoryToken = null;
+    await this.removeCachedToken();
+
+    if (!cachedToken?.token) {
+      return;
     }
 
-    await this.removeCachedToken();
-    await fetch(`https://oauth2.googleapis.com/revoke?token=${encodeURIComponent(token)}`, {
+    await fetch(`https://oauth2.googleapis.com/revoke?token=${encodeURIComponent(cachedToken.token)}`, {
       method: "POST"
     }).catch(() => undefined);
   }

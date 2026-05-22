@@ -58,7 +58,7 @@ Task classification metadata remains in Chrome storage until you remove it by un
 
 Your Google Tasks remain in your Google account. Task Compass does not delete tasks. When you mark a task complete, the extension updates that task's status in Google Tasks.
 
-You can revoke the extension's Google access at any time from your Google Account permissions page.
+You can disconnect Google from the extension to remove the cached OAuth token and request token revocation. You can also revoke the extension's Google access at any time from your Google Account permissions page.
 
 ## Security
 

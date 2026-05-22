@@ -9,6 +9,7 @@ Task Compass is a Chrome side panel extension that turns a Google Tasks list int
 - Treat tasks due today or overdue as urgent by default.
 - Remember manual urgency and importance choices with `chrome.storage.sync`.
 - Mark tasks complete from the matrix and sync that status back to Google Tasks.
+- Disconnect Google from the extension and request OAuth token revocation.
 - Keep task data local to the extension and Google APIs, with no analytics or third-party tracking.
 
 ## How It Works

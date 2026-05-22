@@ -63,6 +63,11 @@ function installChromeMock(options: { authenticated: boolean; storage?: Record<s
       local: createStorageArea(localStorage)
     }
   });
+
+  return {
+    localStorage,
+    syncStorage
+  };
 }
 
 function installFetchMock(responseByUrl: Array<[string, unknown]>) {
@@ -170,5 +175,52 @@ describe("App", () => {
     await user.click(await screen.findByRole("button", { name: "Today" }));
 
     await waitFor(() => expect(screen.getByText("Review notes")).toBeVisible());
+  });
+
+  it("disconnects Google and revokes the cached token", async () => {
+    const user = userEvent.setup();
+    const storage = installChromeMock({ authenticated: true, storage: { selectedTaskListId: "list-1" } });
+    const fetchMock = vi.fn((url: string) => {
+      if (url.includes("/users/@me/lists")) {
+        return Promise.resolve({
+          ok: true,
+          json: () => Promise.resolve({ items: [{ id: "list-1", title: "Today" }] })
+        });
+      }
+      if (url.includes("/lists/list-1/tasks")) {
+        return Promise.resolve({
+          ok: true,
+          json: () =>
+            Promise.resolve({
+              items: [{ id: "task-1", title: "Review notes", status: "needsAction" }]
+            })
+        });
+      }
+      if (url.includes("https://oauth2.googleapis.com/revoke")) {
+        return Promise.resolve({
+          ok: true,
+          json: () => Promise.resolve({})
+        });
+      }
+
+      return Promise.resolve({
+        ok: false,
+        text: () => Promise.resolve("Unexpected URL")
+      });
+    });
+    vi.stubGlobal("fetch", fetchMock);
+    const { App } = await import("./App");
+
+    render(<App />);
+
+    await screen.findByText("Review notes");
+    await user.click(screen.getByTitle("Disconnect Google"));
+
+    expect(await screen.findByRole("heading", { name: /connect google tasks/i })).toBeVisible();
+    expect(storage.localStorage.googleOAuthAccessToken).toBeUndefined();
+    expect(fetchMock).toHaveBeenCalledWith(
+      "https://oauth2.googleapis.com/revoke?token=token-1",
+      { method: "POST" }
+    );
   });
 });

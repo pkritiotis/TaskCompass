@@ -7,6 +7,7 @@ Chrome Web Store assets for Task Compass for Google Tasks.
 - `../public/icons/icon-16.png`
 - `../public/icons/icon-48.png`
 - `../public/icons/icon-128.png`
+- `icon-128.png`
 - `screenshots/01-prioritize-google-tasks.png`
 - `screenshots/02-drag-to-prioritize.png`
 - `screenshots/03-complete-and-refresh.png`
@@ -24,6 +25,8 @@ Chrome Web Store assets for Task Compass for Google Tasks.
 ```bash
 node store-assets/source/generate-icons.mjs
 ```
+
+Use `icon-128.png` as the Chrome Web Store extension icon upload. The SVG in `source/icon.svg` is only the editable source reference.
 
 ## Regenerate Screenshots And Promo Images
 

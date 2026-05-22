@@ -18,6 +18,7 @@ const COLORS = {
 };
 
 const OUTPUTS = [
+  ["../icon-128.png", 128],
   ["../../public/icons/icon-128.png", 128],
   ["../../public/icons/icon-48.png", 48],
   ["../../public/icons/icon-16.png", 16]

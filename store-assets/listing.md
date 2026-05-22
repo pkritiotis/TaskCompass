@@ -23,6 +23,7 @@ Features:
 - Drag tasks between Do, Schedule, Delegate, and Eliminate
 - Mark tasks complete directly from the side panel
 - Refresh the panel to fetch the latest incomplete tasks
+- Disconnect Google and request OAuth token revocation
 - Sync selected list and matrix metadata with Chrome storage
 
 Task Compass does not use ads, analytics, or tracking.
@@ -43,7 +44,7 @@ English
 
 ## Asset Checklist
 
-- Extension icon: `../public/icons/icon-128.png`
+- Extension icon: `icon-128.png`
 - Small promo image: `promotional/small-promo-440x280.png`
 - Marquee promo image: `promotional/marquee-1400x560.png`
 - Screenshots:

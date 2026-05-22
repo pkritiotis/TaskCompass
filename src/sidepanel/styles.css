@@ -40,6 +40,11 @@ select {
   margin: 0;
 }
 
+.header-actions {
+  display: flex;
+  gap: 8px;
+}
+
 .eyebrow {
   color: #5d6a63;
   font-size: 12px;
