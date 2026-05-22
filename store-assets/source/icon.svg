@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128">
+  <defs>
+    <filter id="soft-shadow" x="-20%" y="-20%" width="140%" height="150%">
+      <feDropShadow dx="0" dy="8" stdDeviation="8" flood-color="#22372a" flood-opacity="0.18" />
+    </filter>
+  </defs>
+  <rect width="128" height="128" fill="none" />
+  <g filter="url(#soft-shadow)">
+    <rect x="16" y="16" width="96" height="96" rx="27" fill="#fbfdf8" />
+    <rect x="28" y="28" width="32" height="32" rx="7" fill="#78aee8" stroke="#17241e" stroke-opacity="0.28" />
+    <rect x="68" y="28" width="32" height="32" rx="7" fill="#ee806f" stroke="#17241e" stroke-opacity="0.28" />
+    <rect x="28" y="68" width="32" height="32" rx="7" fill="#77ad78" stroke="#17241e" stroke-opacity="0.28" />
+    <rect x="68" y="68" width="32" height="32" rx="7" fill="#f0c75f" stroke="#17241e" stroke-opacity="0.28" />
+    <rect x="35" y="36" width="19" height="6" rx="3" fill="#ffffff" stroke="#17241e" stroke-opacity="0.24" />
+    <rect x="35" y="46" width="16" height="6" rx="3" fill="#ffffff" stroke="#17241e" stroke-opacity="0.24" />
+    <rect x="75" y="36" width="19" height="6" rx="3" fill="#ffffff" stroke="#17241e" stroke-opacity="0.24" />
+    <rect x="75" y="46" width="14" height="6" rx="3" fill="#ffffff" stroke="#17241e" stroke-opacity="0.24" />
+    <rect x="35" y="76" width="16" height="6" rx="3" fill="#ffffff" stroke="#17241e" stroke-opacity="0.24" />
+    <rect x="75" y="76" width="17" height="6" rx="3" fill="#ffffff" stroke="#17241e" stroke-opacity="0.24" />
+    <rect x="16" y="16" width="96" height="96" rx="27" fill="none" stroke="#17241e" stroke-width="4" opacity="0.18" />
+  </g>
+</svg>

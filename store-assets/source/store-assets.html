@@ -1,0 +1,943 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Task Compass Store Assets</title>
+    <style>
+      :root {
+        color: #18241f;
+        background: #eef4ee;
+        font-family:
+          Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+          sans-serif;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        padding: 32px;
+      }
+
+      .asset {
+        background: #f7faf5;
+        border: 0;
+        display: block;
+        margin: 0 0 32px;
+        overflow: hidden;
+        position: relative;
+      }
+
+      .icon-128 {
+        align-items: center;
+        background: transparent;
+        display: flex;
+        height: 128px;
+        justify-content: center;
+        width: 128px;
+      }
+
+      .icon-48 {
+        align-items: center;
+        background: transparent;
+        display: flex;
+        height: 48px;
+        justify-content: center;
+        width: 48px;
+      }
+
+      .icon-16 {
+        align-items: center;
+        background: transparent;
+        display: flex;
+        height: 16px;
+        justify-content: center;
+        width: 16px;
+      }
+
+      .mark {
+        --mark-size: 96px;
+
+        background: #fbfdf8;
+        border-radius: 28%;
+        box-shadow:
+          inset 0 0 0 calc(var(--mark-size) * 0.035) rgb(23 36 30 / 18%),
+          0 10px 24px rgb(34 55 42 / 18%);
+        display: grid;
+        gap: calc(var(--mark-size) * 0.045);
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        height: var(--mark-size);
+        padding: calc(var(--mark-size) * 0.12);
+        position: relative;
+        width: var(--mark-size);
+      }
+
+      .mark-cell {
+        border: 1px solid rgb(23 36 30 / 24%);
+        border-radius: calc(var(--mark-size) * 0.07);
+        display: flex;
+        flex-direction: column;
+        gap: calc(var(--mark-size) * 0.035);
+        padding: calc(var(--mark-size) * 0.052);
+      }
+
+      .mark-cell:nth-child(1) {
+        background: #78aee8;
+      }
+
+      .mark-cell:nth-child(2) {
+        background: #ee806f;
+      }
+
+      .mark-cell:nth-child(3) {
+        background: #77ad78;
+      }
+
+      .mark-cell:nth-child(4) {
+        background: #f0c75f;
+      }
+
+      .mark-item {
+        background: #ffffff;
+        border: 1px solid rgb(23 36 30 / 24%);
+        border-radius: calc(var(--mark-size) * 0.035);
+        box-shadow: 0 1px 2px rgb(28 42 32 / 8%);
+        height: calc(var(--mark-size) * 0.08);
+      }
+
+      .icon-48 .mark {
+        --mark-size: 36px;
+
+        border-radius: 28%;
+        box-shadow:
+          inset 0 0 0 1px rgb(23 36 30 / 18%),
+          0 3px 8px rgb(34 55 42 / 18%);
+      }
+
+      .icon-16 .mark {
+        --mark-size: 14px;
+
+        border-radius: 4px;
+        gap: 1px;
+        padding: 2px;
+        box-shadow: inset 0 0 0 1px rgb(23 36 30 / 20%);
+      }
+
+      .icon-16 .mark-item {
+        display: none;
+      }
+
+      .screenshot {
+        height: 800px;
+        width: 1280px;
+      }
+
+      .promo-small {
+        height: 280px;
+        width: 440px;
+      }
+
+      .promo-marquee {
+        height: 560px;
+        width: 1400px;
+      }
+
+      .scene {
+        background:
+          linear-gradient(90deg, rgb(255 255 255 / 72%) 1px, transparent 1px),
+          linear-gradient(rgb(255 255 255 / 72%) 1px, transparent 1px),
+          radial-gradient(circle at 22% 18%, rgb(79 134 198 / 14%), transparent 28%),
+          radial-gradient(circle at 84% 78%, rgb(77 147 103 / 18%), transparent 30%),
+          #eff6ef;
+        background-size:
+          54px 54px,
+          54px 54px,
+          auto,
+          auto,
+          auto;
+        height: 100%;
+        position: relative;
+        width: 100%;
+      }
+
+      .brand {
+        align-items: center;
+        display: flex;
+        gap: 14px;
+      }
+
+      .brand-mark {
+        --mark-size: 48px;
+
+        box-shadow:
+          inset 0 0 0 3px rgb(255 255 255 / 85%),
+          0 6px 14px rgb(34 55 42 / 16%);
+      }
+
+      .brand-word {
+        font-size: 24px;
+        font-weight: 780;
+        letter-spacing: 0;
+      }
+
+      .headline {
+        font-size: 58px;
+        font-weight: 820;
+        letter-spacing: 0;
+        line-height: 1.02;
+        margin: 0;
+        max-width: 590px;
+      }
+
+      .subhead {
+        color: #53645a;
+        font-size: 23px;
+        line-height: 1.45;
+        margin: 24px 0 0;
+        max-width: 560px;
+      }
+
+      .chrome-window {
+        background: #ffffff;
+        border: 1px solid #d6dfd5;
+        border-radius: 18px;
+        box-shadow: 0 24px 70px rgb(31 50 39 / 18%);
+        overflow: hidden;
+      }
+
+      .browser-bar {
+        align-items: center;
+        background: #f3f6f2;
+        border-bottom: 1px solid #dce4da;
+        display: flex;
+        gap: 8px;
+        height: 42px;
+        padding: 0 16px;
+      }
+
+      .dot {
+        border-radius: 999px;
+        height: 10px;
+        width: 10px;
+      }
+
+      .dot.red {
+        background: #f26a55;
+      }
+
+      .dot.yellow {
+        background: #f2c55b;
+      }
+
+      .dot.green {
+        background: #62b77a;
+      }
+
+      .browser-title {
+        color: #667369;
+        font-size: 13px;
+        font-weight: 700;
+        margin-left: 12px;
+      }
+
+      .side-panel {
+        background: #f8faf6;
+        min-height: 612px;
+        padding: 20px;
+        width: 486px;
+      }
+
+      .panel-header {
+        align-items: center;
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 18px;
+      }
+
+      .eyebrow {
+        color: #5d6a63;
+        font-size: 12px;
+        font-weight: 800;
+        margin: 0 0 4px;
+        text-transform: uppercase;
+      }
+
+      .panel-header h2 {
+        font-size: 28px;
+        line-height: 1;
+        margin: 0;
+      }
+
+      .refresh {
+        align-items: center;
+        background: #ffffff;
+        border: 1px solid #d8dfd7;
+        border-radius: 8px;
+        color: #26332b;
+        display: flex;
+        font-size: 18px;
+        height: 38px;
+        justify-content: center;
+        width: 38px;
+      }
+
+      .toolbar {
+        align-items: center;
+        display: flex;
+        gap: 10px;
+        margin-bottom: 14px;
+      }
+
+      .toolbar span {
+        color: #4d5a52;
+        font-size: 13px;
+        font-weight: 800;
+      }
+
+      .select {
+        background: #ffffff;
+        border: 1px solid #ccd5cc;
+        border-radius: 8px;
+        color: #1e2b23;
+        flex: 1;
+        font-size: 14px;
+        padding: 9px 11px;
+      }
+
+      .matrix-frame {
+        background: #f4f8f2;
+        border: 1px solid #d3ddd3;
+        border-radius: 8px;
+        display: grid;
+        gap: 8px 10px;
+        grid-template-columns: 50px minmax(0, 1fr) minmax(0, 1fr);
+        grid-template-rows: 220px 220px 28px;
+        padding: 10px 10px 8px;
+      }
+
+      .matrix {
+        display: grid;
+        grid-column: 2 / 4;
+        grid-row: 1 / 3;
+        gap: 8px;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      }
+
+      .axis {
+        color: #415149;
+        font-size: 11px;
+        font-weight: 850;
+        line-height: 1.2;
+        text-align: center;
+        text-transform: uppercase;
+      }
+
+      .axis-row {
+        align-self: center;
+        grid-column: 1;
+        justify-self: center;
+        transform: rotate(-90deg);
+        white-space: nowrap;
+      }
+
+      .important {
+        grid-row: 1;
+      }
+
+      .not-important {
+        grid-row: 2;
+      }
+
+      .axis-col {
+        align-self: center;
+        grid-row: 3;
+        justify-self: center;
+      }
+
+      .not-urgent {
+        grid-column: 2;
+      }
+
+      .urgent {
+        grid-column: 3;
+      }
+
+      .quadrant {
+        background: #ffffff;
+        border: 1px solid transparent;
+        border-radius: 8px;
+        padding: 12px;
+      }
+
+      .q-schedule {
+        background: #f0f7ff;
+        border-color: #bed6ed;
+      }
+
+      .q-do {
+        background: #fff3f0;
+        border-color: #f2c7bd;
+      }
+
+      .q-eliminate {
+        background: #f2f6f0;
+        border-color: #cddcc8;
+      }
+
+      .q-delegate {
+        background: #fff8e8;
+        border-color: #ecd59f;
+      }
+
+      .quad-head {
+        align-items: center;
+        display: flex;
+        font-size: 15px;
+        font-weight: 820;
+        justify-content: space-between;
+        margin-bottom: 10px;
+      }
+
+      .count {
+        align-items: center;
+        background: #eef2ec;
+        border-radius: 999px;
+        color: #3d4c42;
+        display: inline-flex;
+        font-size: 12px;
+        font-weight: 800;
+        height: 23px;
+        justify-content: center;
+        min-width: 23px;
+        padding: 0 8px;
+      }
+
+      .task {
+        background: #fbfcfa;
+        border: 1px solid #e0e5de;
+        border-radius: 8px;
+        box-shadow: 0 1px 2px rgb(28 42 32 / 8%);
+        font-size: 13px;
+        font-weight: 720;
+        line-height: 1.28;
+        margin-top: 8px;
+        padding: 9px;
+      }
+
+      .task small {
+        color: #66736a;
+        display: block;
+        font-size: 11px;
+        font-weight: 600;
+        margin-top: 4px;
+      }
+
+      .screen-layout {
+        display: grid;
+        gap: 58px;
+        grid-template-columns: minmax(0, 1fr) 526px;
+        height: 100%;
+        padding: 76px 88px;
+      }
+
+      .screen-copy {
+        align-self: center;
+      }
+
+      .screen-copy .brand {
+        margin-bottom: 42px;
+      }
+
+      .callout-list {
+        display: grid;
+        gap: 14px;
+        margin-top: 34px;
+        max-width: 530px;
+      }
+
+      .callout {
+        align-items: center;
+        background: rgb(255 255 255 / 72%);
+        border: 1px solid #dce6dc;
+        border-radius: 12px;
+        display: flex;
+        gap: 12px;
+        padding: 13px 15px;
+      }
+
+      .callout strong {
+        font-size: 16px;
+      }
+
+      .callout span {
+        color: #5d6b62;
+        display: block;
+        font-size: 13px;
+        margin-top: 2px;
+      }
+
+      .glyph {
+        align-items: center;
+        background: #1f5e45;
+        border-radius: 999px;
+        color: #ffffff;
+        display: flex;
+        flex: 0 0 auto;
+        font-size: 17px;
+        font-weight: 820;
+        height: 32px;
+        justify-content: center;
+        width: 32px;
+      }
+
+      .focused-panel {
+        transform: rotate(1deg);
+      }
+
+      .floating-card {
+        background: #ffffff;
+        border: 1px solid #dde7dc;
+        border-radius: 14px;
+        box-shadow: 0 18px 50px rgb(31 50 39 / 14%);
+        padding: 18px;
+        position: absolute;
+      }
+
+      .drag-card {
+        bottom: 88px;
+        left: 508px;
+        width: 260px;
+      }
+
+      .drag-card h3 {
+        font-size: 17px;
+        margin: 0 0 6px;
+      }
+
+      .drag-card p {
+        color: #607068;
+        font-size: 13px;
+        line-height: 1.45;
+        margin: 0;
+      }
+
+      .arrow {
+        color: #1f5e45;
+        font-size: 54px;
+        font-weight: 900;
+        left: 746px;
+        position: absolute;
+        top: 470px;
+        transform: rotate(-8deg);
+      }
+
+      .promo-composition {
+        height: 100%;
+        position: relative;
+      }
+
+      .promo-small .promo-composition {
+        padding: 28px;
+      }
+
+      .promo-small .brand-word {
+        font-size: 25px;
+      }
+
+      .promo-small .mini-matrix {
+        bottom: 25px;
+        height: 138px;
+        position: absolute;
+        right: 28px;
+        width: 210px;
+      }
+
+      .promo-small .headline-mini {
+        font-size: 34px;
+        font-weight: 830;
+        line-height: 1.05;
+        margin: 38px 0 0;
+        max-width: 210px;
+      }
+
+      .promo-marquee .promo-composition {
+        display: grid;
+        gap: 64px;
+        grid-template-columns: 460px minmax(0, 1fr);
+        padding: 72px 88px;
+      }
+
+      .promo-marquee .headline {
+        font-size: 64px;
+      }
+
+      .wide-matrix {
+        align-self: center;
+        background: #ffffff;
+        border: 1px solid #d7e1d6;
+        border-radius: 20px;
+        box-shadow: 0 24px 70px rgb(31 50 39 / 16%);
+        display: grid;
+        gap: 10px;
+        grid-template-columns: repeat(2, 1fr);
+        padding: 18px;
+      }
+
+      .tile {
+        border-radius: 14px;
+        min-height: 158px;
+        padding: 16px;
+      }
+
+      .tile h3 {
+        font-size: 22px;
+        margin: 0 0 8px;
+      }
+
+      .tile p {
+        color: #59685f;
+        font-size: 15px;
+        line-height: 1.35;
+        margin: 0;
+      }
+
+      .mini-matrix,
+      .wide-matrix-small {
+        background: #ffffff;
+        border: 1px solid #d7e1d6;
+        border-radius: 14px;
+        box-shadow: 0 18px 42px rgb(31 50 39 / 16%);
+        display: grid;
+        gap: 6px;
+        grid-template-columns: repeat(2, 1fr);
+        padding: 10px;
+      }
+
+      .mini-cell {
+        border-radius: 8px;
+        min-height: 56px;
+      }
+
+      .mini-cell:nth-child(1) {
+        background: #f0f7ff;
+      }
+
+      .mini-cell:nth-child(2) {
+        background: #fff3f0;
+      }
+
+      .mini-cell:nth-child(3) {
+        background: #f2f6f0;
+      }
+
+      .mini-cell:nth-child(4) {
+        background: #fff8e8;
+      }
+    </style>
+  </head>
+  <body>
+    <section id="icon-128" class="asset icon-128" aria-label="Task Compass icon 128">
+      <div class="mark"><div class="mark-cell"><span class="mark-item"></span><span class="mark-item"></span></div><div class="mark-cell"><span class="mark-item"></span><span class="mark-item"></span></div><div class="mark-cell"><span class="mark-item"></span></div><div class="mark-cell"><span class="mark-item"></span></div></div>
+    </section>
+
+    <section id="icon-48" class="asset icon-48" aria-label="Task Compass icon 48">
+      <div class="mark"><div class="mark-cell"><span class="mark-item"></span><span class="mark-item"></span></div><div class="mark-cell"><span class="mark-item"></span><span class="mark-item"></span></div><div class="mark-cell"><span class="mark-item"></span></div><div class="mark-cell"><span class="mark-item"></span></div></div>
+    </section>
+
+    <section id="icon-16" class="asset icon-16" aria-label="Task Compass icon 16">
+      <div class="mark"><div class="mark-cell"><span class="mark-item"></span><span class="mark-item"></span></div><div class="mark-cell"><span class="mark-item"></span><span class="mark-item"></span></div><div class="mark-cell"><span class="mark-item"></span></div><div class="mark-cell"><span class="mark-item"></span></div></div>
+    </section>
+
+    <section id="screenshot-1" class="asset screenshot">
+      <div class="scene screen-layout">
+        <div class="screen-copy">
+          <div class="brand">
+            <div class="mark brand-mark"><div class="mark-cell"><span class="mark-item"></span><span class="mark-item"></span></div><div class="mark-cell"><span class="mark-item"></span><span class="mark-item"></span></div><div class="mark-cell"><span class="mark-item"></span></div><div class="mark-cell"><span class="mark-item"></span></div></div>
+            <div class="brand-word">Task Compass</div>
+          </div>
+          <h1 class="headline">Prioritize Google Tasks without leaving Chrome.</h1>
+          <p class="subhead">
+            Open a focused side panel, choose a task list, and sort work by urgency and importance.
+          </p>
+          <div class="callout-list">
+            <div class="callout">
+              <div class="glyph">1</div>
+              <div>
+                <strong>Connect Google Tasks</strong>
+                <span>Load your existing task lists into a compact matrix.</span>
+              </div>
+            </div>
+            <div class="callout">
+              <div class="glyph">2</div>
+              <div>
+                <strong>See the real priority picture</strong>
+                <span>Due tasks become urgent; importance stays under your control.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="chrome-window focused-panel">
+          <div class="browser-bar">
+            <span class="dot red"></span>
+            <span class="dot yellow"></span>
+            <span class="dot green"></span>
+            <span class="browser-title">Chrome side panel</span>
+          </div>
+          <div class="side-panel">
+            <div class="panel-header">
+              <div>
+                <p class="eyebrow">Google Tasks</p>
+                <h2>Task Compass</h2>
+              </div>
+              <div class="refresh">↻</div>
+            </div>
+            <div class="toolbar">
+              <span>Task list</span>
+              <div class="select">Work priorities</div>
+            </div>
+            <div class="matrix-frame">
+              <div class="axis axis-row important">Important</div>
+              <div class="axis axis-row not-important">Not important</div>
+              <div class="matrix">
+                <div class="quadrant q-schedule">
+                  <div class="quad-head">Schedule <span class="count">2</span></div>
+                  <div class="task">Review architecture proposal</div>
+                  <div class="task">Plan hiring scorecard</div>
+                </div>
+                <div class="quadrant q-do">
+                  <div class="quad-head">Do <span class="count">2</span></div>
+                  <div class="task">Prepare incident follow-up <small>Due today</small></div>
+                  <div class="task">Unblock OAuth verification</div>
+                </div>
+                <div class="quadrant q-eliminate">
+                  <div class="quad-head">Eliminate <span class="count">1</span></div>
+                  <div class="task">Clean duplicate notes</div>
+                </div>
+                <div class="quadrant q-delegate">
+                  <div class="quad-head">Delegate <span class="count">1</span></div>
+                  <div class="task">Collect retro action updates</div>
+                </div>
+              </div>
+              <div class="axis axis-col not-urgent">Not urgent</div>
+              <div class="axis axis-col urgent">Urgent</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="screenshot-2" class="asset screenshot">
+      <div class="scene screen-layout">
+        <div class="screen-copy">
+          <div class="brand">
+            <div class="mark brand-mark"><div class="mark-cell"><span class="mark-item"></span><span class="mark-item"></span></div><div class="mark-cell"><span class="mark-item"></span><span class="mark-item"></span></div><div class="mark-cell"><span class="mark-item"></span></div><div class="mark-cell"><span class="mark-item"></span></div></div>
+            <div class="brand-word">Task Compass</div>
+          </div>
+          <h1 class="headline">Drag tasks into the quadrant that matches reality.</h1>
+          <p class="subhead">
+            Keep Google Tasks as your source of truth while Task Compass remembers your matrix.
+          </p>
+          <div class="callout-list">
+            <div class="callout">
+              <div class="glyph">↕</div>
+              <div>
+                <strong>Manual overrides</strong>
+                <span>Move tasks when context matters more than due dates.</span>
+              </div>
+            </div>
+            <div class="callout">
+              <div class="glyph">✓</div>
+              <div>
+                <strong>Chrome sync</strong>
+                <span>Your selected list and quadrant choices follow your browser.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="chrome-window">
+          <div class="browser-bar">
+            <span class="dot red"></span>
+            <span class="dot yellow"></span>
+            <span class="dot green"></span>
+            <span class="browser-title">Task Compass</span>
+          </div>
+          <div class="side-panel">
+            <div class="panel-header">
+              <div>
+                <p class="eyebrow">Google Tasks</p>
+                <h2>Task Compass</h2>
+              </div>
+              <div class="refresh">↻</div>
+            </div>
+            <div class="toolbar">
+              <span>Task list</span>
+              <div class="select">Personal backlog</div>
+            </div>
+            <div class="matrix-frame">
+              <div class="axis axis-row important">Important</div>
+              <div class="axis axis-row not-important">Not important</div>
+              <div class="matrix">
+                <div class="quadrant q-schedule">
+                  <div class="quad-head">Schedule <span class="count">3</span></div>
+                  <div class="task">Draft project page copy</div>
+                  <div class="task">Set store screenshots</div>
+                </div>
+                <div class="quadrant q-do">
+                  <div class="quad-head">Do <span class="count">1</span></div>
+                  <div class="task">Finish privacy policy <small>Due today</small></div>
+                </div>
+                <div class="quadrant q-eliminate">
+                  <div class="quad-head">Eliminate <span class="count">1</span></div>
+                  <div class="task">Archive stale ideas</div>
+                </div>
+                <div class="quadrant q-delegate">
+                  <div class="quad-head">Delegate <span class="count">2</span></div>
+                  <div class="task">Ask for listing feedback</div>
+                </div>
+              </div>
+              <div class="axis axis-col not-urgent">Not urgent</div>
+              <div class="axis axis-col urgent">Urgent</div>
+            </div>
+          </div>
+        </div>
+        <div class="floating-card drag-card">
+          <h3>Prepare launch checklist</h3>
+          <p>Dragged from “Schedule” to “Do” when it becomes time-sensitive.</p>
+        </div>
+        <div class="arrow">→</div>
+      </div>
+    </section>
+
+    <section id="screenshot-3" class="asset screenshot">
+      <div class="scene screen-layout">
+        <div class="screen-copy">
+          <div class="brand">
+            <div class="mark brand-mark"><div class="mark-cell"><span class="mark-item"></span><span class="mark-item"></span></div><div class="mark-cell"><span class="mark-item"></span><span class="mark-item"></span></div><div class="mark-cell"><span class="mark-item"></span></div><div class="mark-cell"><span class="mark-item"></span></div></div>
+            <div class="brand-word">Task Compass</div>
+          </div>
+          <h1 class="headline">Complete tasks from the matrix.</h1>
+          <p class="subhead">
+            Mark work done in the side panel and Task Compass updates Google Tasks directly.
+          </p>
+          <div class="callout-list">
+            <div class="callout">
+              <div class="glyph">↻</div>
+              <div>
+                <strong>Refresh anytime</strong>
+                <span>Pull the latest incomplete tasks from Google Tasks.</span>
+              </div>
+            </div>
+            <div class="callout">
+              <div class="glyph">✓</div>
+              <div>
+                <strong>Stay focused</strong>
+                <span>Use the matrix as a lightweight daily triage view.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="chrome-window focused-panel">
+          <div class="browser-bar">
+            <span class="dot red"></span>
+            <span class="dot yellow"></span>
+            <span class="dot green"></span>
+            <span class="browser-title">Google Tasks triage</span>
+          </div>
+          <div class="side-panel">
+            <div class="panel-header">
+              <div>
+                <p class="eyebrow">Google Tasks</p>
+                <h2>Task Compass</h2>
+              </div>
+              <div class="refresh">↻</div>
+            </div>
+            <div class="toolbar">
+              <span>Task list</span>
+              <div class="select">Today</div>
+            </div>
+            <div class="matrix-frame">
+              <div class="axis axis-row important">Important</div>
+              <div class="axis axis-row not-important">Not important</div>
+              <div class="matrix">
+                <div class="quadrant q-schedule">
+                  <div class="quad-head">Schedule <span class="count">1</span></div>
+                  <div class="task">Think through next article</div>
+                </div>
+                <div class="quadrant q-do">
+                  <div class="quad-head">Do <span class="count">3</span></div>
+                  <div class="task">Publish extension assets <small>Due today</small></div>
+                  <div class="task">Record OAuth demo</div>
+                  <div class="task">Submit store listing</div>
+                </div>
+                <div class="quadrant q-eliminate">
+                  <div class="quad-head">Eliminate <span class="count">0</span></div>
+                </div>
+                <div class="quadrant q-delegate">
+                  <div class="quad-head">Delegate <span class="count">1</span></div>
+                  <div class="task">Review screenshots</div>
+                </div>
+              </div>
+              <div class="axis axis-col not-urgent">Not urgent</div>
+              <div class="axis axis-col urgent">Urgent</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="promo-small" class="asset promo-small">
+      <div class="scene promo-composition">
+        <div class="brand">
+          <div class="mark brand-mark"><div class="mark-cell"><span class="mark-item"></span><span class="mark-item"></span></div><div class="mark-cell"><span class="mark-item"></span><span class="mark-item"></span></div><div class="mark-cell"><span class="mark-item"></span></div><div class="mark-cell"><span class="mark-item"></span></div></div>
+          <div class="brand-word">Task Compass</div>
+        </div>
+        <div class="headline-mini">Find the next right task.</div>
+        <div class="mini-matrix">
+          <div class="mini-cell"></div>
+          <div class="mini-cell"></div>
+          <div class="mini-cell"></div>
+          <div class="mini-cell"></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="promo-marquee" class="asset promo-marquee">
+      <div class="scene promo-composition">
+        <div>
+          <div class="brand">
+            <div class="mark brand-mark"><div class="mark-cell"><span class="mark-item"></span><span class="mark-item"></span></div><div class="mark-cell"><span class="mark-item"></span><span class="mark-item"></span></div><div class="mark-cell"><span class="mark-item"></span></div><div class="mark-cell"><span class="mark-item"></span></div></div>
+            <div class="brand-word">Task Compass</div>
+          </div>
+          <h1 class="headline">Prioritize your Google Tasks with a clearer map.</h1>
+          <p class="subhead">
+            A focused Eisenhower Matrix companion for Chrome’s side panel.
+          </p>
+        </div>
+        <div class="wide-matrix">
+          <div class="tile q-schedule">
+            <h3>Schedule</h3>
+            <p>Important work that deserves protected time.</p>
+          </div>
+          <div class="tile q-do">
+            <h3>Do</h3>
+            <p>Urgent priorities that need attention now.</p>
+          </div>
+          <div class="tile q-eliminate">
+            <h3>Eliminate</h3>
+            <p>Low-value work that clutters your list.</p>
+          </div>
+          <div class="tile q-delegate">
+            <h3>Delegate</h3>
+            <p>Urgent tasks that do not need to be yours.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </body>
+</html>
