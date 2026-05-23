@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Task Compass for Google Tasks</title>
+    <meta
+      name="description"
+      content="Task Compass is a Chrome extension that helps users prioritize Google Tasks in an Eisenhower Matrix."
+    />
+    <style>
+      :root {
+        color: #17201b;
+        background: #f8faf6;
+        font-family:
+          Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+      }
+
+      a {
+        color: #1f5e45;
+        font-weight: 700;
+      }
+
+      .shell {
+        margin: 0 auto;
+        max-width: 920px;
+        padding: 48px 20px;
+      }
+
+      header {
+        align-items: center;
+        display: flex;
+        gap: 18px;
+        margin-bottom: 48px;
+      }
+
+      header img {
+        height: 72px;
+        width: 72px;
+      }
+
+      h1 {
+        font-size: clamp(34px, 7vw, 58px);
+        letter-spacing: 0;
+        line-height: 1;
+        margin: 0;
+      }
+
+      .eyebrow {
+        color: #5d6a63;
+        font-size: 13px;
+        font-weight: 800;
+        letter-spacing: 0;
+        margin: 0 0 8px;
+        text-transform: uppercase;
+      }
+
+      .lead {
+        color: #38483e;
+        font-size: 21px;
+        line-height: 1.55;
+        margin: 0 0 28px;
+        max-width: 720px;
+      }
+
+      .actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-bottom: 54px;
+      }
+
+      .button {
+        align-items: center;
+        background: #1f5e45;
+        border-radius: 8px;
+        color: #ffffff;
+        display: inline-flex;
+        min-height: 44px;
+        padding: 0 16px;
+        text-decoration: none;
+      }
+
+      .button.secondary {
+        background: #ffffff;
+        border: 1px solid #d8dfd7;
+        color: #26332b;
+      }
+
+      section {
+        border-top: 1px solid #d8dfd7;
+        padding: 30px 0;
+      }
+
+      h2 {
+        font-size: 24px;
+        margin: 0 0 14px;
+      }
+
+      p,
+      li {
+        color: #48574e;
+        font-size: 16px;
+        line-height: 1.65;
+      }
+
+      ul {
+        margin: 0;
+        padding-left: 22px;
+      }
+
+      footer {
+        border-top: 1px solid #d8dfd7;
+        color: #657168;
+        font-size: 14px;
+        padding-top: 24px;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="shell">
+      <header>
+        <img src="./icon-128.png" alt="Task Compass icon" />
+        <div>
+          <p class="eyebrow">Chrome extension</p>
+          <h1>Task Compass for Google Tasks</h1>
+        </div>
+      </header>
+
+      <p class="lead">
+        Task Compass helps you prioritize Google Tasks in an Eisenhower Matrix inside Chrome's side panel.
+        Connect Google Tasks, choose a list, organize incomplete tasks by urgency and importance, and complete
+        tasks without leaving the browser.
+      </p>
+
+      <div class="actions">
+        <a class="button" href="https://github.com/pkritiotis/TaskCompass">View source</a>
+        <a class="button secondary" href="./privacy/">Privacy policy</a>
+      </div>
+
+      <section>
+        <h2>What It Does</h2>
+        <ul>
+          <li>Loads Google Tasks lists after user authorization.</li>
+          <li>Displays incomplete tasks from the selected list in a four-quadrant matrix.</li>
+          <li>Lets users drag tasks between Do, Schedule, Delegate, and Eliminate.</li>
+          <li>Marks tasks complete in Google Tasks when users choose to complete them.</li>
+          <li>Lets users disconnect Google and request OAuth token revocation.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Privacy</h2>
+        <p>
+          Task Compass keeps Google Tasks as the source of truth. It stores only the selected task list,
+          matrix classification metadata, and a temporary OAuth access token in Chrome extension storage.
+          It does not use ads, analytics, or tracking.
+        </p>
+        <p>
+          Read the full <a href="./privacy/">privacy policy</a>.
+        </p>
+      </section>
+
+      <section>
+        <h2>Independent Project</h2>
+        <p>
+          Task Compass is an independent productivity extension and is not affiliated with Google.
+        </p>
+      </section>
+
+      <footer>
+        <p>Contact: <a href="mailto:contact@pkritiotis.io">contact@pkritiotis.io</a></p>
+      </footer>
+    </main>
+  </body>
+</html>

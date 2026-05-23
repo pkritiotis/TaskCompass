@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Privacy Policy | Task Compass for Google Tasks</title>
+    <meta
+      name="description"
+      content="Privacy policy for Task Compass for Google Tasks, a Chrome extension for prioritizing Google Tasks."
+    />
+    <style>
+      :root {
+        color: #17201b;
+        background: #f8faf6;
+        font-family:
+          Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+      }
+
+      a {
+        color: #1f5e45;
+        font-weight: 700;
+      }
+
+      main {
+        margin: 0 auto;
+        max-width: 820px;
+        padding: 48px 20px;
+      }
+
+      h1 {
+        font-size: clamp(32px, 6vw, 48px);
+        letter-spacing: 0;
+        line-height: 1.05;
+        margin: 0 0 8px;
+      }
+
+      h2 {
+        border-top: 1px solid #d8dfd7;
+        font-size: 23px;
+        margin: 32px 0 12px;
+        padding-top: 28px;
+      }
+
+      p,
+      li {
+        color: #48574e;
+        font-size: 16px;
+        line-height: 1.65;
+      }
+
+      code {
+        background: #edf4ec;
+        border-radius: 6px;
+        color: #17201b;
+        padding: 2px 6px;
+      }
+
+      .updated {
+        color: #657168;
+        margin-top: 0;
+      }
+
+      .back {
+        display: inline-block;
+        margin-bottom: 28px;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <a class="back" href="../">Back to Task Compass</a>
+      <h1>Privacy Policy for Task Compass for Google Tasks</h1>
+      <p class="updated">Last updated: May 22, 2026</p>
+
+      <p>
+        Task Compass for Google Tasks is a Chrome extension that helps users view and organize Google Tasks
+        in an Eisenhower Matrix.
+      </p>
+
+      <h2>Data Access</h2>
+      <p>Task Compass requests access to Google Tasks so it can:</p>
+      <ul>
+        <li>load your Google task lists</li>
+        <li>load incomplete tasks from the selected task list</li>
+        <li>display task titles and due dates in the matrix</li>
+        <li>mark tasks as completed when you choose to complete them</li>
+        <li>organize tasks into urgency and importance quadrants</li>
+      </ul>
+      <p>
+        Task Compass uses the Google OAuth scope
+        <code>https://www.googleapis.com/auth/tasks</code>. This scope is required because the extension
+        needs to read Google Tasks data and update task completion status.
+      </p>
+
+      <h2>Data Storage</h2>
+      <p>Task Compass stores a limited amount of extension data in Chrome storage:</p>
+      <ul>
+        <li>selected Google Tasks list id</li>
+        <li>task ids and task list ids for tasks you manually classify</li>
+        <li>urgency and importance metadata for those tasks</li>
+        <li>timestamps for when classification metadata was updated</li>
+        <li>temporary OAuth access token used to call the Google Tasks API</li>
+      </ul>
+      <p>
+        Task classification metadata is stored using <code>chrome.storage.sync</code> so your matrix
+        organization can sync across Chrome browsers where you are signed in. OAuth token data is stored
+        using <code>chrome.storage.local</code>.
+      </p>
+      <p>
+        Task Compass does not store your Google Tasks data on any server controlled by the developer.
+      </p>
+
+      <h2>Data Sharing</h2>
+      <p>Task Compass does not sell, rent, share, or transfer your data to third parties.</p>
+      <p>
+        The extension communicates only with Google services needed for authentication and Google Tasks
+        functionality.
+      </p>
+
+      <h2>Analytics And Tracking</h2>
+      <p>Task Compass does not use analytics, advertising, tracking pixels, or behavioral tracking.</p>
+
+      <h2>Use Of Google API Data</h2>
+      <p>
+        Task Compass uses information received from Google APIs only to provide the extension's task
+        management functionality.
+      </p>
+      <p>
+        The use of information received from Google APIs will adhere to the Chrome Web Store User Data
+        Policy, including the Limited Use requirements.
+      </p>
+
+      <h2>Data Retention And Deletion</h2>
+      <p>
+        Task classification metadata remains in Chrome storage until you remove it by uninstalling the
+        extension, clearing extension storage, or clearing synced Chrome data.
+      </p>
+      <p>
+        Your Google Tasks remain in your Google account. Task Compass does not delete tasks. When you mark
+        a task complete, the extension updates that task's status in Google Tasks.
+      </p>
+      <p>
+        You can disconnect Google from the extension to remove the cached OAuth token and request token
+        revocation. You can also revoke the extension's Google access at any time from your Google Account
+        permissions page.
+      </p>
+
+      <h2>Security</h2>
+      <p>
+        Task Compass communicates with Google APIs over HTTPS. OAuth tokens are stored using Chrome extension
+        storage and are used only to authorize requests to Google Tasks.
+      </p>
+
+      <h2>Contact</h2>
+      <p>
+        For questions about this privacy policy, contact
+        <a href="mailto:contact@pkritiotis.io">contact@pkritiotis.io</a>.
+      </p>
+    </main>
+  </body>
+</html>

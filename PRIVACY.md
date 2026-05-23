@@ -69,5 +69,5 @@ Task Compass communicates with Google APIs over HTTPS. OAuth tokens are stored u
 For questions about this privacy policy, contact:
 
 ```text
-pkritiotis@gmail.com
+contact@pkritiotis.io
 ```
