@@ -127,4 +127,4 @@ npm run dev         # start the Vite dev server for UI work
 
 ## License
 
-Choose and add an open-source license before accepting external contributions. Until a license is added, all rights are reserved by default.
+Task Compass is released under the [MIT License](LICENSE).
